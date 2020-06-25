@@ -6,14 +6,18 @@ import SearchPage from "./SearchPage";
 
 class BooksApp extends React.Component {
   state = {
-    allbooks: [],
-    /**
-     * TODO: Instead of using this state variable to keep track of which page
-     * we're on, use the URL in the browser's address bar. This will ensure that
-     * users can use the browser's back and forward buttons to navigate between
-     * pages, as well as provide a good URL they can bookmark and share.
-     */
+    mybooks: [],
+    searchedBooks: [],
+
     showSearchPage: false,
+  };
+  // main page functions
+  getAllData = () => {
+    BooksAPI.getAll().then((v) => {
+      this.setState({
+        mybooks: v,
+      });
+    });
   };
 
   componentDidMount() {
@@ -26,18 +30,40 @@ class BooksApp extends React.Component {
     });
   };
 
-  getAllData = () => {
-    BooksAPI.getAll().then((v) => {
-      this.setState({
-        allbooks: v,
+  // search page functions
+  searchBooks = (value) => {
+    if (value !== "") {
+      BooksAPI.search(value, 20).then((books) => {
+        if (Array.isArray(books)) {
+          this.setState({
+            searchedBooks: this.addShelfToSearchedBook(books),
+          });
+        }
       });
+    }
+  };
+
+  addShelfToSearchedBook = (sbooks) => {
+    return sbooks.map((book) => {
+      const existbook = this.state.mybooks.find(
+        (mybook) => mybook.id === book.id
+      );
+      if (existbook !== undefined) {
+        return existbook;
+      }
+      return book;
     });
   };
+
   render() {
     return (
       <div className="app">
         {this.state.showSearchPage ? (
-          <SearchPage />
+          <SearchPage
+            searchedBooks={this.state.searchedBooks}
+            searchBooks={this.searchBooks}
+            changeShelf={this.changeShelf}
+          />
         ) : (
           <div className="list-books">
             <div className="list-books-title">
@@ -45,7 +71,7 @@ class BooksApp extends React.Component {
             </div>
 
             <MyBookPage
-              books={this.state.allbooks}
+              books={this.state.mybooks}
               changeShelf={this.changeShelf}
             />
             <div className="open-search">

@@ -11,19 +11,16 @@ class MyBooksPage extends Component {
         <div>
           <BooksShelf
             title="Read"
-            shelf="read"
             books={this.filterBooks("read")}
             changeShelf={this.props.changeShelf}
           />
           <BooksShelf
             title="Current Reading"
-            shelf="currentlyReading"
             books={this.filterBooks("currentlyReading")}
             changeShelf={this.props.changeShelf}
           />
           <BooksShelf
             title="Want to read"
-            shelf="wantToRead"
             books={this.filterBooks("wantToRead")}
             changeShelf={this.props.changeShelf}
           />
