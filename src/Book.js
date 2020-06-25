@@ -2,8 +2,8 @@ import React, { Component } from "react";
 
 class Book extends Component {
   render() {
-    const bookData = this.props.data
-    const shelf = this.props.shelf
+    const bookData = this.props.data;
+    const shelf = this.props.shelf;
     return (
       <div className="book">
         <div className="book-top">
@@ -17,7 +17,12 @@ class Book extends Component {
             }}
           ></div>
           <div className="book-shelf-changer">
-            <select defaultValue={shelf}>
+            <select
+              defaultValue={shelf}
+              onChange={(event) =>
+                this.props.changeShelf(bookData, event.target.value)
+              }
+            >
               <option value="move" disabled>
                 Move to...
               </option>
@@ -28,8 +33,8 @@ class Book extends Component {
             </select>
           </div>
         </div>
-          <div className="book-title">{bookData.title}</div>
-          <div className="book-authors">{bookData.authors[0]}</div>
+        <div className="book-title">{bookData.title}</div>
+        <div className="book-authors">{bookData.authors[0]}</div>
       </div>
     );
   }

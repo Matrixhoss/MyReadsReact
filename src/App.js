@@ -17,12 +17,22 @@ class BooksApp extends React.Component {
   };
 
   componentDidMount() {
+    this.getAllData();
+  }
+
+  changeShelf = (book, shelf) => {
+    BooksAPI.update(book, shelf).then((data) => {
+      this.getAllData();
+    });
+  };
+
+  getAllData = () => {
     BooksAPI.getAll().then((v) => {
       this.setState({
         allbooks: v,
       });
     });
-  }
+  };
   render() {
     return (
       <div className="app">
@@ -34,7 +44,10 @@ class BooksApp extends React.Component {
               <h1>MyReads</h1>
             </div>
 
-            <MyBookPage books={this.state.allbooks} />
+            <MyBookPage
+              books={this.state.allbooks}
+              changeShelf={this.changeShelf}
+            />
             <div className="open-search">
               <a onClick={() => this.setState({ showSearchPage: true })}>
                 Add a book
