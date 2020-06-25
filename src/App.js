@@ -6,7 +6,7 @@ import SearchPage from "./SearchPage";
 
 class BooksApp extends React.Component {
   state = {
-    allbooks : [],
+    allbooks: [],
     /**
      * TODO: Instead of using this state variable to keep track of which page
      * we're on, use the URL in the browser's address bar. This will ensure that
@@ -16,18 +16,16 @@ class BooksApp extends React.Component {
     showSearchPage: false,
   };
 
-  getdata = () => {
+  componentDidMount() {
     BooksAPI.getAll().then((v) => {
       this.setState({
-        allbooks : v
-      })
+        allbooks: v,
+      });
     });
-  };
+  }
   render() {
-    
     return (
       <div className="app">
-        {this.getdata()}
         {this.state.showSearchPage ? (
           <SearchPage />
         ) : (
@@ -36,7 +34,7 @@ class BooksApp extends React.Component {
               <h1>MyReads</h1>
             </div>
 
-            <MyBookPage books={this.state.allbooks}/>
+            <MyBookPage books={this.state.allbooks} />
             <div className="open-search">
               <a onClick={() => this.setState({ showSearchPage: true })}>
                 Add a book
