@@ -3,6 +3,7 @@ import React from "react";
 function Book(props) {
   const bookData = props.data;
   const shelf = props.shelf;
+  const changeShelf = props.changeShelf;
 
   const title = "title" in bookData ? bookData.title : "Unknowen";
   const auther =
@@ -23,9 +24,7 @@ function Book(props) {
         <div className="book-shelf-changer">
           <select
             defaultValue={shelf}
-            onChange={(event) =>
-              this.props.changeShelf(bookData, event.target.value)
-            }
+            onChange={(event) => changeShelf(bookData, event.target.value)}
           >
             <option value="move" disabled>
               Move to...
