@@ -4,10 +4,16 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 class MyBooksPage extends Component {
+
   filterBooks = (shelf) =>
     this.props.books.filter((book) => book.shelf === shelf);
 
   render() {
+    const shelves = {
+      currentlyReading: ['Currently Reading', 'currentlyReading'],
+      wantToRead: ['Want to Read', 'wantToRead'],
+      read: ['Read', 'read']
+    }
     return (
       <div>
         <div className="list-books">
@@ -17,20 +23,20 @@ class MyBooksPage extends Component {
           <div className="list-books-content">
             <div>
               <BooksShelf
-                title="Read"
-                books={this.filterBooks("read")}
+                title={shelves.read[0]}
+                books={this.filterBooks(shelves.read[1])}
                 changeShelf={this.props.changeShelf}
                 emptyHandler="The is No books in this shelf"
               />
               <BooksShelf
-                title="Current Reading"
-                books={this.filterBooks("currentlyReading")}
+                title={shelves.currentlyReading[0]}
+                books={this.filterBooks(shelves.currentlyReading[1])}
                 changeShelf={this.props.changeShelf}
                 emptyHandler="The is No books in this shelf"
               />
               <BooksShelf
-                title="Want to read"
-                books={this.filterBooks("wantToRead")}
+                title={shelves.wantToRead[0]}
+                books={this.filterBooks(shelves.wantToRead[1])}
                 changeShelf={this.props.changeShelf}
                 emptyHandler="The is No books in this shelf"
               />
