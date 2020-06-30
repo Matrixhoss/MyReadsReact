@@ -10,9 +10,9 @@ class SearchPage extends Component {
 
   onInputChange = (value, search) => {
     this.setState({
-      inputValue: value.trim(),
+      inputValue: value,
     });
-    search(value.trim());
+    search(value);
   };
   render() {
     const { searchedBooks, searchBooks, changeShelf } = this.props;
@@ -36,8 +36,9 @@ class SearchPage extends Component {
         <div className="search-books-results">
           <BookShelf
             title="Results"
-            books={searchedBooks}
+            books={this.state.inputValue === ""? [] : searchedBooks}
             changeShelf={changeShelf}
+            emptyHandler={this.state.inputValue === ""  ? "" : "Can't find results"}
           />
         </div>
       </div>

@@ -39,7 +39,15 @@ class BooksApp extends Component {
           this.setState({
             searchedBooks: this.addShelfToSearchedBook(books),
           });
+        }else{
+          this.setState({
+            searchedBooks: [],
+          });
         }
+      });
+    }else{
+      this.setState({
+        searchedBooks: [],
       });
     }
   };

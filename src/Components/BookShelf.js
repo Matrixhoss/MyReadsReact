@@ -3,13 +3,13 @@ import Book from "./Book";
 import PropTypes from "prop-types";
 
 function BooksShelf(props) {
-  const { title, books, changeShelf } = props;
+  const { title, books, changeShelf  , emptyHandler} = props;
   return (
     <div className="bookshelf">
       <h2 className="bookshelf-title">{title}</h2>
       <div className="bookshelf-books">
         <ol className="books-grid">
-          {books.map((book) => (
+          { books.length>0 ? books.map((book) => (
             <li key={book.id}>
               <Book
                 data={book}
@@ -17,7 +17,9 @@ function BooksShelf(props) {
                 changeShelf={changeShelf}
               />
             </li>
-          ))}
+          )): 
+          <li>{emptyHandler}</li>
+          }
         </ol>
       </div>
     </div>

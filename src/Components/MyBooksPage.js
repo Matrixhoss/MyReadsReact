@@ -20,16 +20,19 @@ class MyBooksPage extends Component {
                 title="Read"
                 books={this.filterBooks("read")}
                 changeShelf={this.props.changeShelf}
+                emptyHandler="The is No books in this shelf"
               />
               <BooksShelf
                 title="Current Reading"
                 books={this.filterBooks("currentlyReading")}
                 changeShelf={this.props.changeShelf}
+                emptyHandler="The is No books in this shelf"
               />
               <BooksShelf
                 title="Want to read"
                 books={this.filterBooks("wantToRead")}
                 changeShelf={this.props.changeShelf}
+                emptyHandler="The is No books in this shelf"
               />
             </div>
           </div>
